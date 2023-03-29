@@ -62,6 +62,9 @@ function view(model) {
     case "ned":
       x_rect++;
       break;
+    case "stop":
+      x_rect;
+      break;
   }
 }
 
