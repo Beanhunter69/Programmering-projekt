@@ -6,9 +6,9 @@ let player1;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   ball1 = new Ball(100, 100, 5);
-  state1 = new Position();
+  state = new Position();
   player1 = new Player(10, 100);
-  player2 = new Player(windowWidth - (10 + 20), 100);
+  player2 = new Player(windowWidth - (10+20), 100);
 }
 
 function draw() {
