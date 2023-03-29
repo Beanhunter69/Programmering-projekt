@@ -78,7 +78,9 @@ function keyPressed() {
 function keyReleased() {
   switch (keyCode) {
     case 87:
+      print("hello");
       state.transition("stop");
+      break;
     case 83:
       state.transition("stop");
       break;
