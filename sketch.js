@@ -8,7 +8,7 @@ function setup() {
   ball1 = new Ball(100, 100, 5);
   state = new Position();
   player1 = new Player(10, 100);
-  player2 = new Player(windowWidth - (10+20), 100);
+  player2 = new Player(windowWidth - (10 + 20), 100);
 }
 
 function draw() {
@@ -29,6 +29,14 @@ class Ball {
   }
   show() {
     ellipse(this.x, this.y, this.r, this.r);
+  }
+
+  checkWin() {
+    if (this.x < 0) {
+      print("player 2 wins");
+    } else if (this.x > windowWidth) {
+      print("player 1 wins");
+    }
   }
 }
 
@@ -74,11 +82,15 @@ class Position {
       case "up":
         if (event == "stop") {
           this.currentState = "idle";
+        } else if (event == "down") {
+          this.currentState = "down";
         }
         break;
       case "down":
         if (event == "stop") {
           this.currentState = "idle";
+        } else if ((event = "up")) {
+          this.currentState = "up";
         }
         break;
     }
@@ -109,17 +121,19 @@ function keyPressed() {
       break;
   }
 }
-
 function keyReleased() {
-  switch (keyCode) {
-    case 87:
-      print("hello");
-      print(state.currentState);
-      state.transition("stop");
-      print(state.currentState);
-      break;
-    case 83:
-      state.transition("stop");
-      break;
+  if (!keyIsDown(87) && !keyIsDown(83)) {
+    state.transition("stop");
+  } else {
+    if (keyIsDown(87)) {
+      state.transition("up");
+    } else if (keyIsDown(83)) {
+      state.transition("down");
+    }
+    if (keyIsDown(83)) {
+      state.transition("down");
+    } else if (keyIsDown(87)) {
+      state.transition("up");
+    }
   }
 }
