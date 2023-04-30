@@ -1,14 +1,19 @@
 let x_rect = 100;
 let ball1;
-let state;
+let state = {
+  currentPlayer: 1,
+  player1state: "idle",
+  player2state: "idle"  
+}
 let player1;
+let player2; 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  ball1 = new Ball(100, 100, 5);
+  ball1 = new Ball(100, 100,5);
   state = new Position();
-  player1 = new Player(10, 100);
-  player2 = new Player(windowWidth - (10 + 20), 100);
+  player1 = new Player(10, 100,1);
+  player2 = new Player(windowWidth - (10 + 20), 100,2);
 }
 
 function draw() {
@@ -17,7 +22,6 @@ function draw() {
   ball1.show();
   player1.view();
   player2.view();
-  //print(state);
 }
 
 class Ball {
@@ -41,16 +45,18 @@ class Ball {
 }
 
 class Player {
-  constructor(x, y) {
+  constructor(x, y, playerNumber) {
     this.x = x;
     this.y = y;
     this.width = 20;
     this.height = 120;
     this.speed = 5;
+    this.playerNumber = playerNumber; 
   }
 
   view() {
-    switch (state.currentState) {
+    
+    switch (state[`currentState${this.playerNumber}`]) {
       case "up":
         this.y = constrain(this.y - this.speed, 0, windowHeight - this.height);
         rect(this.x, this.y, this.width, this.height);
@@ -64,7 +70,33 @@ class Player {
         break;
     }
   }
-}
+
+} 
+// class Player_2 {
+//   constructor(x,y) {
+//     this.x = x;
+//     this.y = y;
+//     this.width = 20;
+//     this.height = 120;
+//     this.speed = 5;
+//   }
+//   view() {
+//     switch (state.currentState) {
+//       case "up":
+//         this.y = constrain(this.y - this.speed, 0, windowHeight - this.height);
+//         rect(this.x, this.y, this.width, this.height);
+//         break;
+//       case "down":
+//         this.y = constrain(this.y + this.speed, 0, windowHeight - this.height);
+//         rect(this.x, this.y, this.width, this.height);
+//         break;
+//       case "idle":
+//         rect(this.x, this.y, this.width, this.height);
+//         break;
+//     }
+//   }
+
+// }
 
 class Position {
   constructor() {
@@ -119,10 +151,16 @@ function keyPressed() {
     case 83:
       state.transition("down");
       break;
+    case 38: 
+      state.transition("up");
+      break; 
+    case 40: 
+      state.transition("down"); 
+      break;
   }
 }
 function keyReleased() {
-  if (!keyIsDown(87) && !keyIsDown(83)) {
+  if (!keyIsDown(87) && !keyIsDown(83) && !keyIsDown(38) && !keyIsDown(40)) {
     state.transition("stop");
   } else {
     if (keyIsDown(87)) {
@@ -135,5 +173,15 @@ function keyReleased() {
     } else if (keyIsDown(87)) {
       state.transition("up");
     }
+    if (keyIsDown(38)) {
+      state.transition("up");
+    } else if (keyIsDown(40)) {
+      state.transition("down");
+    } 
+    if (keyIsDown(40)) {
+      state.transition("down");
+    } else if (keyIsDown(38)) {
+      state.transition("up");
+    } 
   }
 }
