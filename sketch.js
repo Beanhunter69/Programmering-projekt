@@ -1,19 +1,15 @@
 let x_rect = 100;
 let ball1;
-let state = {
-  currentPlayer: 1,
-  player1state: "idle",
-  player2state: "idle"  
-}
+let state;
 let player1;
-let player2; 
+let player2;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  ball1 = new Ball(100, 100,5);
+  ball1 = new Ball(100, 100, 5);
   state = new Position();
-  player1 = new Player(10, 100,1);
-  player2 = new Player(windowWidth - (10 + 20), 100,2);
+  player1 = new Player(10, 100);
+  player2 = new Player(windowWidth - (10 + 20), 100);
 }
 
 function draw() {
@@ -45,18 +41,16 @@ class Ball {
 }
 
 class Player {
-  constructor(x, y, playerNumber) {
+  constructor(x, y) {
     this.x = x;
     this.y = y;
     this.width = 20;
     this.height = 120;
     this.speed = 5;
-    this.playerNumber = playerNumber; 
   }
 
   view() {
-    
-    switch (state[`currentState${this.playerNumber}`]) {
+    switch (state.currentState) {
       case "up":
         this.y = constrain(this.y - this.speed, 0, windowHeight - this.height);
         rect(this.x, this.y, this.width, this.height);
@@ -70,8 +64,7 @@ class Player {
         break;
     }
   }
-
-} 
+}
 // class Player_2 {
 //   constructor(x,y) {
 //     this.x = x;
@@ -151,11 +144,11 @@ function keyPressed() {
     case 83:
       state.transition("down");
       break;
-    case 38: 
+    case 38:
       state.transition("up");
-      break; 
-    case 40: 
-      state.transition("down"); 
+      break;
+    case 40:
+      state.transition("down");
       break;
   }
 }
@@ -177,11 +170,11 @@ function keyReleased() {
       state.transition("up");
     } else if (keyIsDown(40)) {
       state.transition("down");
-    } 
+    }
     if (keyIsDown(40)) {
       state.transition("down");
     } else if (keyIsDown(38)) {
       state.transition("up");
-    } 
+    }
   }
 }
