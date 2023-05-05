@@ -9,7 +9,7 @@ let player1, player2;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  ball1 = new Ball(100, 100, 5);
+  ball1 = new Ball(windowWidth/2, windowHeight/2, 5);
   player1 = new Player(10, 100, 1);
   player2 = new Player(windowWidth - 30, 100, 2);
 }
@@ -30,19 +30,22 @@ function keyPressed() {
     state.player2State = "up";
   } else if (keyCode === DOWN_ARROW) {
     state.player2State = "down";
-  }
+  } 
 }
 
 function keyReleased() {
   if (key === "w" || key === "s") {
     state.player1State = "idle";
-  } else if (keycode === "s") {
-    state.player1State = "down";
-  } else if (keycode === "w") {
+  } else if (keyIsDown("w")) {
     state.player1State = "up";
-  }
-  if (keyCode === UP_ARROW || keyCode === DOWN_ARROW) {
-    state.player2State = "idle";
+  } else if (keyIsDown("s")) {
+    state.player1State = "down";
+  } else if (keyCode === UP_ARROW || keyCode === DOWN_ARROW){
+    state.player2State = "idle"; 
+  } else if (keyIsDown(UP_ARROW)) {
+    state.player2State = "up"; 
+  } else if (keyIsDown(DOWN_ARROW)){
+    state.player2State = "down"; 
   }
 }
 // function keyReleased() {
