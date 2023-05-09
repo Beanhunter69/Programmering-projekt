@@ -15,14 +15,14 @@ class Ball {
     }
     // make the ball bounce off the player
     if (
-      this.ballx < 30 &&
+      this.ballx < player1.x + this.r &&
       this.bally > player1.y &&
       this.bally < player1.y + player1.height
     ) {
       this.speed = this.speed * -1;
     }
     if (
-      this.ballx > windowWidth - 30 &&
+      this.ballx > player2.x - this.r / 2 &&
       this.bally > player2.y &&
       this.bally < player2.y + player2.height
     ) {
