@@ -1,32 +1,78 @@
 class Ball {
-  constructor(x, y) {
-    this.ballx = x;
-    this.bally = y;
-    this.r = 30;
-    this.speed = 5;
+  constructor(x, y, speed = 10) {
+    this.spawn = createVector(x, y);
+    this.speed = speed;
+    this.r = 10;
+    this.resetball();
   }
-  view() {
-    ellipse(this.ballx, windowHeight / 2, this.r);
-    // make the ball move
-    this.ballx = this.ballx + this.speed;
-    // make the ball bounce
-    if (this.ballx > windowWidth - this.r / 2 || this.ballx < this.r / 2) {
-      this.speed = this.speed * -1;
+
+  resetball() {
+    this.pos = this.spawn.copy();
+    let angle = random(-PI / 4, PI / 4);
+    this.vel = p5.Vector.fromAngle(angle, this.speed);
+    if (random(1) > 0.5) this.vel.x *= -1;
+  }
+
+  outOfBounds() {
+    if (this.pos.x > width + this.r) {
+      this.resetball();
+      return "right";
     }
-    // make the ball bounce off the player
-    if (
-      this.ballx < player1.x + this.r &&
-      this.bally > player1.y &&
-      this.bally < player1.y + player1.height
-    ) {
-      this.speed = this.speed * -1;
+
+    if (this.pos.x < -this.r) {
+      this.resetball();
+      return "left";
     }
-    if (
-      this.ballx > player2.x - this.r / 2 &&
-      this.bally > player2.y &&
-      this.bally < player2.y + player2.height
-    ) {
-      this.speed = this.speed * -1;
+
+    return false;
+  }
+
+  hit(player1, player2) {
+    for (Player of [player1, player2]) {
+      let playerX = Player.x;
+      let playerY = Player.y;
+      let ballX = this.pos.x;
+      let ballY = this.pos.y;
+      let r = this.r;
+
+      if (playerX - r < ballX && ballX < playerX + Player.width + r) {
+        if (playerY - r < ballY && ballY < playerY + Player.height + r) {
+          let padCenter = createVector(
+            Player.x + Player.width / 2,
+            Player.y + Player.height / 2
+          );
+
+          // Vector from center of pad to center of ball
+          this.vel = this.pos.copy().sub(padCenter);
+          this.vel.limit(10);
+
+          // basically halve that angle so it points more to the center
+          let a = this.vel.heading();
+          if (a > -PI / 2 && a < PI / 2) {
+            this.vel = p5.Vector.fromAngle(a / 2, 10);
+          } else {
+            this.vel.rotate(PI);
+            let a = this.vel.heading();
+            this.vel = p5.Vector.fromAngle(PI + a / 2, 10);
+          }
+        }
+      }
     }
+  }
+
+  update() {
+    this.pos.add(this.vel);
+
+    // bounce off top and bottom walls
+    if (this.pos.y + this.r >= height || this.pos.y - this.r <= 0) {
+      this.pos.y = constrain(this.pos.y, this.r, height - this.r);
+      this.vel.y *= -1;
+    }
+  }
+
+  show() {
+    fill(255);
+    noStroke();
+    ellipse(this.pos.x, this.pos.y, this.r * 2);
   }
 }
