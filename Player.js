@@ -6,6 +6,7 @@ class Player {
     this.height = 120;
     this.speed = 5;
     this.playerNumber = playerNumber;
+    this.score = 0;
   }
 
   view() {
