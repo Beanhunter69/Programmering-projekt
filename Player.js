@@ -39,7 +39,7 @@ class Player {
 
   resetPowerup() {
     this.activepowerup = false;
-    
+
     this.sizeChange();
   }
 }

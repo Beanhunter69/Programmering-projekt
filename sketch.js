@@ -15,12 +15,13 @@ function setup() {
   ball = new Ball(windowWidth / 2, windowHeight / 2);
   player1 = new Player(10, 100, 1);
   player2 = new Player(windowWidth - 30, 100, 2);
-  // powerups1 = new Powerups_player(player1.x, player1.y, 1);
-  //powerups2 = new  Powerups_player(player2.x, player2.y, 2);
+  alert(
+    "Player 1 controls: W and S to move, E to activate powerup. \nPlayer 2 controls: Up and Down to move, - to activate powerup. \nThe powerup applies a debuff to the opponent. \nR can be used to reset the game to reset."
+  );
 }
 
 function draw() {
-  background(150);
+  background(100);
 
   player1.view();
   ball.hit(player1, player2);
