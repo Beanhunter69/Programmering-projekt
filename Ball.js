@@ -66,8 +66,8 @@ class Ball {
         let ballY = this.pos.y;
         let r = this.r;
   
-        if (powerx - r < ballX && ballX < powerx + Powerups_player.width + r) {
-          if (powery - r < ballY && ballY < powery + Powerups_player.height + r) {
+        if (powerx - r < ballX && ballX < powerx + Powerups_player.width /2 + r) {
+          if (powery - r < ballY && ballY < powery + Powerups_player.height /2 + r) {
             let padCenter = createVector(
               Powerups_player.x + Powerups_player.width / 2,
               Powerups_player.y + Powerups_player.height / 2
