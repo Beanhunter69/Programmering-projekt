@@ -7,7 +7,8 @@ class Player {
     this.speed = 5;
     this.playerNumber = playerNumber;
     this.score = 0;
-    this.activepowerup = false; 
+    this.activepowerup = false;
+    this.usedpower = false;
   }
 
   view() {
@@ -25,22 +26,20 @@ class Player {
     }
     rect(this.x, this.y, this.width, this.height);
   }
-  hide(){
 
-  }
-  checkCollision(ball) {
-    if (
-      ball.x + ball.radius > this.x &&
-      ball.x - ball.radius < this.x + this.w &&
-      ball.y + ball.radius > this.y &&
-      ball.y - ball.radius < this.y + this.h
-    ) {
-      if (!this.activepowerup) { // only bounce the ball if powerup is not active
-        ball.speed.x = +1;
-        ball.speed.y += random(-1, 1);
-      }
-      return true;
+  sizeChange() {
+    if (this.activepowerup) {
+      this.height = 60;
+      this.width = 10;
+    } else {
+      this.height = 120;
+      this.width = 20;
     }
-    return false;
+  }
+
+  resetPowerup() {
+    this.activepowerup = false;
+
+    this.sizeChange();
   }
 }
