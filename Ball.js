@@ -1,4 +1,6 @@
+//skaber klassen Ball
 class Ball {
+  //laver konstruktor med værdier til position, hastighed, retning og radius
   constructor(x, y, speed = 10) {
     this.spawn = createVector(x, y);
     this.speed = speed;
@@ -6,6 +8,7 @@ class Ball {
     this.resetball();
   }
 
+  //metode til at nulstille bolden effter point score eller ved reset
   resetball() {
     this.pos = this.spawn.copy();
     let angle = random(-PI / 4, PI / 4);
