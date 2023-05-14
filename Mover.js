@@ -39,12 +39,19 @@ function keyPressed() {
       state.player2State = "noMove";
     }
   }
-  if (key === "1") {
-    Powerups = !Powerups; 
-    this.activepowerup = true;
+  if (key === "-") {
+    if (player2.usedpower == false) {
+      player1.activepowerup = true;
+      player2.usedpower = true;
+      player1.sizeChange();
+    }
   }
-  if (key === "d") {
-    Powerups2 = !Powerups2;
+  if (key === "e") {
+    if (player2.usedpower == false) {
+      player2.activepowerup = true;
+      player1.usedpower = true;
+      player2.sizeChange();
+    }
   }
 }
 
@@ -89,4 +96,20 @@ function keyReleased() {
       state.player2State = "up";
     }
   }
+}
+
+function keyTyped() {
+  if (key == " ") {
+    go = true;
+  }
+
+  if (key == "r") {
+    player1.score = 0;
+    player2.score = 0;
+    ball.resetball();
+    go = false;
+    player1.usedpower = false;
+    player2.usedpower = false;
+  }
+  return false;
 }

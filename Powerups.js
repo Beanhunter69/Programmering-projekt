@@ -1,3 +1,4 @@
+/*
 class Powerups_player extends Player {
   constructor(x, y, playerNumber) {
     super(x, y, playerNumber);
@@ -18,5 +19,6 @@ class Powerups_player extends Player {
     }
     rect(this.x, this.y, this.width / 2, this.height / 2);
   }
-  hide() {}
+  
 }
+*/

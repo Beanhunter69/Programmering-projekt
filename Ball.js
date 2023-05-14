@@ -11,16 +11,20 @@ class Ball {
     let angle = random(-PI / 4, PI / 4);
     this.vel = p5.Vector.fromAngle(angle, this.speed);
     if (random(1) > 0.5) this.vel.x *= -1;
+    
   }
 
   outOfBounds() {
-    if (this.pos.x > this.width + this.r) {
+    
+    if (this.pos.x > width + this.r) {
       this.resetball();
+      player1.resetPowerup();
       return "right";
     }
 
     if (this.pos.x < -this.r) {
       this.resetball();
+      player2.resetPowerup();
       return "left";
     }
 
@@ -42,6 +46,8 @@ class Ball {
             Player.y + Player.height / 2
           );
 
+          Player.resetPowerup();
+
           this.vel = this.pos.copy().sub(padCenter);
           this.vel.limit(10);
 
@@ -54,41 +60,48 @@ class Ball {
             this.vel = p5.Vector.fromAngle(PI + a / 2, 10);
           }
         }
-        }
-        
       }
     }
-    hit2(powerups1, powerups2) {
-      for (Powerups_player of [powerups1, powerups2]) {
-        let powerx = Powerups_player.x;
-        let powery = Powerups_player.y;
-        let ballX = this.pos.x;
-        let ballY = this.pos.y;
-        let r = this.r;
-  
-        if (powerx - r < ballX && ballX < powerx + Powerups_player.width /2 + r) {
-          if (powery - r < ballY && ballY < powery + Powerups_player.height /2 + r) {
-            let padCenter = createVector(
-              Powerups_player.x + Powerups_player.width / 2,
-              Powerups_player.y + Powerups_player.height / 2
-            );
-  
-            this.vel = this.pos.copy().sub(padCenter);
-            this.vel.limit(10);
-  
+  }
+/*
+  hit2(powerups1, powerups2) {
+    for (Powerups_player of [powerups1, powerups2]) {
+      let powerx = Powerups_player.x;
+      let powery = Powerups_player.y;
+      let ballX = this.pos.x;
+      let ballY = this.pos.y;
+      let r = this.r;
+
+      if (
+        powerx - r < ballX &&
+        ballX < powerx + Powerups_player.width / 2 + r
+      ) {
+        if (
+          powery - r < ballY &&
+          ballY < powery + Powerups_player.height / 2 + r
+        ) {
+          let padCenter = createVector(
+            Powerups_player.x + Powerups_player.width / 2,
+            Powerups_player.y + Powerups_player.height / 2
+          );
+
+          this.vel = this.pos.copy().sub(padCenter);
+          this.vel.limit(10);
+
+          let a = this.vel.heading();
+          if (a > -PI / 2 && a < PI / 2) {
+            this.vel = p5.Vector.fromAngle(a / 2, 10);
+          } else {
+            this.vel.rotate(PI);
             let a = this.vel.heading();
-            if (a > -PI / 2 && a < PI / 2) {
-              this.vel = p5.Vector.fromAngle(a / 2, 10);
-            } else {
-              this.vel.rotate(PI);
-              let a = this.vel.heading();
-              this.vel = p5.Vector.fromAngle(PI + a / 2, 10);
-            }
+            this.vel = p5.Vector.fromAngle(PI + a / 2, 10);
           }
-          }
-          
         }
       }
+    }
+  }
+  */
+
   update() {
     this.pos.add(this.vel);
 
