@@ -39,6 +39,7 @@ function keyPressed() {
       state.player2State = "noMove";
     }
   }
+  // er vores knapper til vores power up 
   if (key === "-") {
     if (player2.usedpower == false) {
       player1.activepowerup = true;
@@ -54,7 +55,7 @@ function keyPressed() {
     }
   }
 }
-
+// dette er det som gør at vores player ikke bare fortsætter men går tilbage til idle når man giver slip på knappen
 function keyReleased() {
   if (state.player1State == "up") {
     if (key == "w") {
@@ -97,7 +98,7 @@ function keyReleased() {
     }
   }
 }
-
+// Typed gør at når man klikker på mellemrum så starter den spillet, og r restarter
 function keyTyped() {
   if (key == " ") {
     go = true;

@@ -9,13 +9,14 @@ class Ball {
   }
 
   //metode til at nulstille bolden effter point score eller ved reset
+  //sætter et spawn og giver den en random retning den skyde afsted
   resetball() {
     this.pos = this.spawn.copy();
     let angle = random(-PI / 4, PI / 4);
     this.vel = p5.Vector.fromAngle(angle, this.speed);
     if (random(1) > 0.5) this.vel.x *= -1;
   }
-
+  // reseter bolden så den ryger tilbage til midten 
   outOfBounds() {
     if (this.pos.x > width + this.r) {
       this.resetball();
@@ -31,7 +32,7 @@ class Ball {
 
     return false;
   }
-
+  // her tjekker den om den har ramt en af spillerne, hvis den har ramt en spiller skal den altså gå den modstatte retning af vektoreren
   hit(player1, player2) {
     for (Player of [player1, player2]) {
       let playerX = Player.x;
@@ -49,6 +50,7 @@ class Ball {
 
           Player.resetPowerup();
 
+          // sætter vektoreren 
           this.vel = this.pos.copy().sub(padCenter);
           this.vel.limit(10);
 
@@ -65,17 +67,16 @@ class Ball {
     }
   }
  
-
+  // bolden bliver constrainet fra toppen og bunden
   update() {
     this.pos.add(this.vel);
 
-    // bounce off top and bottom walls
     if (this.pos.y + this.r >= height || this.pos.y - this.r <= 0) {
       this.pos.y = constrain(this.pos.y, this.r, height - this.r);
       this.vel.y *= -1;
     }
   }
-
+  // viser bolden 
   show() {
     fill(255);
     noStroke();

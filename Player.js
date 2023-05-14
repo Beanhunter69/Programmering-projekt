@@ -10,7 +10,7 @@ class Player {
     this.activepowerup = false;
     this.usedpower = false;
   }
-
+// bevæger og viser vores spiller 
   view() {
     switch (state["player" + this.playerNumber + "State"]) {
       case "up":
@@ -24,11 +24,13 @@ class Player {
       case "idle":
         break;
     }
+    //viser den som en retangle
     rect(this.x, this.y, this.width, this.height);
   }
-
+  // er vores power up som gør vores spiller mindre og langsommere når man bruger den
   sizeChange() {
     if (this.activepowerup) {
+      this.speed = 3,5;
       this.height = 60;
       this.width = 10;
     } else {
@@ -36,7 +38,7 @@ class Player {
       this.width = 20;
     }
   }
-
+  // nulstiller power uppen 
   resetPowerup() {
     this.activepowerup = false;
 
