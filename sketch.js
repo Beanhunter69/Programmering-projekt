@@ -15,21 +15,26 @@ function setup() {
   ball = new Ball(windowWidth / 2, windowHeight / 2);
   player1 = new Player(10, 100, 1);
   player2 = new Player(windowWidth - 30, 100, 2);
-  powerups1 = new Powerups_player(10, 100, 1);
-  powerups2 = new  Powerups_player(windowWidth - 30, 100, 2);
+  powerups1 = new Powerups_player(player1.x, player1.y, 1);
+  powerups2 = new  Powerups_player(player2.x, player2.y, 2);
 }
 
 function draw() {
+  player1.checkCollision(ball)
   background(150);
   if (Powerups){
     View_player1();
+    ball.hit(player1, player2);
   } else {
     PU();
+    ball.hit2(powerups1,powerups2);
   } 
   if (Powerups2) {
     View_player2();
+    ball.hit(player1, player2);
   } else {
     PU_2();
+    ball.hit2(powerups1,powerups2);
   }
   let oob = ball.outOfBounds();
   if (oob) {
@@ -37,13 +42,16 @@ function draw() {
     go = false;
     if (oob == "right") {
       player1.score++;
+      Powerups = true; 
+      Powerups2 = true; 
     } else {
       player2.score++;
+      Powerups = true; 
+      Powerups2 = true; 
     }
   }
   if (go) ball.update();
   ball.show();
-  ball.hit(player1, player2);
   ball.hit2(powerups1,powerups2);
   textSize(30);
   text(player1.score, 200, 30);

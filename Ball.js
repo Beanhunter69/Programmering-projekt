@@ -1,5 +1,5 @@
 class Ball {
-  constructor(x, y, speed = 10) {
+  constructor(x, y, speed = 2) {
     this.spawn = createVector(x, y);
     this.speed = speed;
     this.r = 10;
@@ -14,7 +14,7 @@ class Ball {
   }
 
   outOfBounds() {
-    if (this.pos.x > width + this.r) {
+    if (this.pos.x > this.width + this.r) {
       this.resetball();
       return "right";
     }

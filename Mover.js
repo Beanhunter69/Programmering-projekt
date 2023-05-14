@@ -41,6 +41,7 @@ function keyPressed() {
   }
   if (key === "1") {
     Powerups = !Powerups; 
+    this.activepowerup = true;
   }
   if (key === "d") {
     Powerups2 = !Powerups2;
