@@ -42,11 +42,9 @@ class Ball {
             Player.y + Player.height / 2
           );
 
-          // Vector from center of pad to center of ball
           this.vel = this.pos.copy().sub(padCenter);
           this.vel.limit(10);
 
-          // basically halve that angle so it points more to the center
           let a = this.vel.heading();
           if (a > -PI / 2 && a < PI / 2) {
             this.vel = p5.Vector.fromAngle(a / 2, 10);
