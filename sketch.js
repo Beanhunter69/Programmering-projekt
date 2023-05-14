@@ -1,5 +1,5 @@
-let x_rect = 100;
 let ball;
+// en global værdi som gør at kan bevæge de to spiller hver for sig 
 let state = {
   currentplayer: 1,
   player1State: "idle",
@@ -12,6 +12,7 @@ let Powerups = true;
 let Powerups2 = true;
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  //her definere vi hvad vores classer skal være
   ball = new Ball(windowWidth / 2, windowHeight / 2);
   player1 = new Player(10, 100, 1);
   player2 = new Player(windowWidth - 30, 100, 2);
@@ -22,16 +23,17 @@ function setup() {
 
 function draw() {
   background(100);
-
+// viser spiller
   player1.view();
+// tjekker om bold og spiller rammer
   ball.hit(player1, player2);
 
   player2.view();
   ball.hit(player1, player2);
-
+// hvis bolden rammer en kant så tæller den point
   let oob = ball.outOfBounds();
   if (oob) {
-    // the ball stays at spawn till go = true
+    // bolden forbliver i midten indtil det er rigtig
     go = false;
 
     if (oob == "right") {
@@ -43,13 +45,16 @@ function draw() {
       Powerups = true;
       Powerups2 = true;
     }
-    console.log(ball.outOfBounds());
   }
+  // her kører den vores update inden i bolden
   if (go) ball.update();
+  // viser bolden
   ball.show();
+  // viser score
   textSize(30);
   text(player1.score, windowWidth / 6, 30);
   text(player2.score, (windowWidth / 6) * 5, 30);
+  // viser hvem der har vundet spillet 
   if (player1.score === 11) {
     background(0);
     text("Player 1 vinder", 700, windowHeight / 2);
@@ -57,7 +62,7 @@ function draw() {
     background(0);
     text("Player 2 vinder", 700, windowHeight / 2);
   }
-
+// viser hvor mange power ups man har tilbage
   if (!player1.usedpower) {
     text("Player 1 has a powerup use left", windowWidth / 6, windowHeight - 20);
   }
