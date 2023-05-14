@@ -1,4 +1,6 @@
+// skaber klassen Player
 class Player {
+  // laver konstruktor med værdier til position, størrelse, hastighed. spillerens nummer og sproing af brug og debuff til powerup
   constructor(x, y, playerNumber) {
     this.x = x;
     this.y = y;
@@ -10,7 +12,7 @@ class Player {
     this.activepowerup = false;
     this.usedpower = false;
   }
-// bevæger og viser vores spiller 
+// Beregner position og bevæger vores spiller gennem viewmodel
   view() {
     switch (state["player" + this.playerNumber + "State"]) {
       case "up":
@@ -24,10 +26,11 @@ class Player {
       case "idle":
         break;
     }
-    //viser den som en retangle
+    //viser den som en retangle på canvas
     rect(this.x, this.y, this.width, this.height);
   }
-  // er vores power up som gør vores spiller mindre og langsommere når man bruger den
+
+  // sizeCgange() ændre størrelsen på spilleren og hastigheden hvis powerup er aktiv
   sizeChange() {
     if (this.activepowerup) {
       this.speed = 3,5;
@@ -38,10 +41,9 @@ class Player {
       this.width = 20;
     }
   }
-  // nulstiller power uppen 
+  // nulstiller power uppen og opdaterer playerstats
   resetPowerup() {
     this.activepowerup = false;
-
     this.sizeChange();
   }
 }
