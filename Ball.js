@@ -27,20 +27,16 @@ class Ball {
     return false;
   }
 
-  hit(player1, player2, powerups1, powerups2) {
-    for (Player of [player1, player2, powerups1, powerups2]) {
+  hit(player1, player2) {
+    for (Player of [player1, player2]) {
       let playerX = Player.x;
       let playerY = Player.y;
-      let powerx = Powerups_player.x
-      let powery = Powerups_player.x
       let ballX = this.pos.x;
       let ballY = this.pos.y;
       let r = this.r;
 
       if (playerX - r < ballX && ballX < playerX + Player.width + r) {
         if (playerY - r < ballY && ballY < playerY + Player.height + r) {
-          if(powerx - r < ballX && ballY < powerx + Powerups_player.width + r){
-            if(powery - r < ballY && ballX < powery + Powerups_player.height + r){
           let padCenter = createVector(
             Player.x + Player.width / 2,
             Player.y + Player.height / 2
@@ -62,9 +58,37 @@ class Ball {
         
       }
     }
-  }
-}
-
+    hit2(powerups1, powerups2) {
+      for (Powerups_player of [powerups1, powerups2]) {
+        let powerx = Powerups_player.x;
+        let powery = Powerups_player.y;
+        let ballX = this.pos.x;
+        let ballY = this.pos.y;
+        let r = this.r;
+  
+        if (powerx - r < ballX && ballX < powerx + Powerups_player.width + r) {
+          if (powery - r < ballY && ballY < powery + Powerups_player.height + r) {
+            let padCenter = createVector(
+              Powerups_player.x + Powerups_player.width / 2,
+              Powerups_player.y + Powerups_player.height / 2
+            );
+  
+            this.vel = this.pos.copy().sub(padCenter);
+            this.vel.limit(10);
+  
+            let a = this.vel.heading();
+            if (a > -PI / 2 && a < PI / 2) {
+              this.vel = p5.Vector.fromAngle(a / 2, 10);
+            } else {
+              this.vel.rotate(PI);
+              let a = this.vel.heading();
+              this.vel = p5.Vector.fromAngle(PI + a / 2, 10);
+            }
+          }
+          }
+          
+        }
+      }
   update() {
     this.pos.add(this.vel);
 

@@ -39,24 +39,11 @@ function keyPressed() {
       state.player2State = "noMove";
     }
   }
-  if (state.powerups1State == "idle") {
-    if (key == "w") {
-      state.powerups1 = "up";
-    } else if (key == "s") {
-      state.powerups1 = "down";
-    }
+  if (key === "1") {
+    Powerups = !Powerups; 
   }
-
-  if (state.player2State == "up") {
-    if (keyCode === DOWN_ARROW) {
-      state.player2State = "noMove";
-    }
-  }
-
-  if (state.player2State == "down") {
-    if (keyCode === UP_ARROW) {
-      state.player2State = "noMove";
-    }
+  if (key === "d") {
+    Powerups2 = !Powerups2;
   }
 }
 
