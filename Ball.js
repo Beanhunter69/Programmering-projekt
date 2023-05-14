@@ -1,6 +1,6 @@
-//skaber klassen Ball
+// skaber klassen Ball
 class Ball {
-  //laver konstruktor med værdier til position, hastighed, retning og radius
+  // laver konstruktor med værdier til position, hastighed, retning og radius
   constructor(x, y, speed = 10) {
     this.spawn = createVector(x, y);
     this.speed = speed;
@@ -8,15 +8,15 @@ class Ball {
     this.resetball();
   }
 
-  //metode til at nulstille bolden effter point score eller ved reset
-  //sætter et spawn og giver den en random retning den skyde afsted
+  // metode til at nulstille bolden effter point score eller ved reset
+  // sætter et spawn og giver den en random retning den skyde afsted
   resetball() {
     this.pos = this.spawn.copy();
     let angle = random(-PI / 4, PI / 4);
     this.vel = p5.Vector.fromAngle(angle, this.speed);
     if (random(1) > 0.5) this.vel.x *= -1;
   }
-  // reseter bolden så den ryger tilbage til midten 
+  // resetter bolden så den ryger tilbage til midten
   outOfBounds() {
     if (this.pos.x > width + this.r) {
       this.resetball();
@@ -32,8 +32,10 @@ class Ball {
 
     return false;
   }
-  // her tjekker den om den har ramt en af spillerne, hvis den har ramt en spiller skal den altså gå den modstatte retning af vektoreren
+  
   hit(player1, player2) {
+    // for loop der kører igennem alle spillerne
+    // Player er en variabel som er lig med player1 og player2 på hver deres afvikling igennem for loopet
     for (Player of [player1, player2]) {
       let playerX = Player.x;
       let playerY = Player.y;
@@ -41,6 +43,7 @@ class Ball {
       let ballY = this.pos.y;
       let r = this.r;
 
+      // her tjekker den om den har ramt en af spillerne, hvis den har ramt en spiller skal den altså gå den modstatte retning af vektoreren
       if (playerX - r < ballX && ballX < playerX + Player.width + r) {
         if (playerY - r < ballY && ballY < playerY + Player.height + r) {
           let padCenter = createVector(
@@ -48,12 +51,12 @@ class Ball {
             Player.y + Player.height / 2
           );
 
+          // ved kollision bliver debuff fra powerup fjernet
           Player.resetPowerup();
 
-          // sætter vektoreren 
+          // sætter vektoreren
           this.vel = this.pos.copy().sub(padCenter);
           this.vel.limit(10);
-
           let a = this.vel.heading();
           if (a > -PI / 2 && a < PI / 2) {
             this.vel = p5.Vector.fromAngle(a / 2, 10);
@@ -66,7 +69,7 @@ class Ball {
       }
     }
   }
- 
+
   // bolden bliver constrainet fra toppen og bunden
   update() {
     this.pos.add(this.vel);
@@ -76,7 +79,7 @@ class Ball {
       this.vel.y *= -1;
     }
   }
-  // viser bolden 
+  // viser bolden
   show() {
     fill(255);
     noStroke();
