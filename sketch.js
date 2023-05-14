@@ -4,22 +4,24 @@ let state = {
   currentplayer: 1,
   player1State: "idle",
   player2State: "idle",
+  powerups1: "idle", 
+  powerups2: "idle",
 };
-let player1, player2, powerups;
+let player1, player2, powerups1, powerups2;
 let go = false;
 let score = 0;
-let button;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   ball = new Ball(windowWidth / 2, windowHeight / 2);
   player1 = new Player(10, 100, 1);
   player2 = new Player(windowWidth - 30, 100, 2);
-  powerups = new Powerups_player(10, 100, 1);
+  powerups1 = new Powerups_player(10, 100, 1);
+  powerups2 = new  Powerups_player(windowWidth - 30, 100, 2);
 }
 
 function draw() {
   background(150);
-  powerups.hide();
+  powerups1.view();
 
   let oob = ball.outOfBounds();
   if (oob) {
@@ -34,7 +36,7 @@ function draw() {
   if (go) ball.update();
   ball.show();
   ball.hit(player1, player2);
-  player1.view();
+  // player1.view();
   player2.view();
   textSize(30);
   text(player1.score, 200, 30);

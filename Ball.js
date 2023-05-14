@@ -27,16 +27,20 @@ class Ball {
     return false;
   }
 
-  hit(player1, player2) {
-    for (Player of [player1, player2]) {
+  hit(player1, player2, powerups1, powerups2) {
+    for (Player of [player1, player2, powerups1, powerups2]) {
       let playerX = Player.x;
       let playerY = Player.y;
+      let powerx = Powerups_player.x
+      let powery = Powerups_player.x
       let ballX = this.pos.x;
       let ballY = this.pos.y;
       let r = this.r;
 
       if (playerX - r < ballX && ballX < playerX + Player.width + r) {
         if (playerY - r < ballY && ballY < playerY + Player.height + r) {
+          if(powerx - r < ballX && ballY < powerx + Powerups_player.width + r){
+            if(powery - r < ballY && ballX < powery + Powerups_player.height + r){
           let padCenter = createVector(
             Player.x + Player.width / 2,
             Player.y + Player.height / 2
@@ -54,9 +58,12 @@ class Ball {
             this.vel = p5.Vector.fromAngle(PI + a / 2, 10);
           }
         }
+        }
+        
       }
     }
   }
+}
 
   update() {
     this.pos.add(this.vel);
