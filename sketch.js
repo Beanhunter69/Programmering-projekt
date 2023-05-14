@@ -49,6 +49,7 @@ function draw() {
       Powerups = true; 
       Powerups2 = true; 
     }
+    console.log(ball.outOfBounds());
   }
   if (go) ball.update();
   ball.show();
