@@ -33,7 +33,7 @@ class Player {
   // sizeCgange() ændre størrelsen på spilleren og hastigheden hvis powerup er aktiv
   sizeChange() {
     if (this.activepowerup) {
-      this.speed = 3;
+      this.speed = 3.5;
       this.height = 60;
       this.width = 10;
     } else {
