@@ -12,7 +12,7 @@ class Player {
     this.activepowerup = false;
     this.usedpower = false;
   }
-// Beregner position og bevæger vores spiller gennem viewmodel
+  // Beregner position og bevæger vores spiller gennem viewmodel
   view() {
     switch (state["player" + this.playerNumber + "State"]) {
       case "up":
@@ -33,10 +33,11 @@ class Player {
   // sizeCgange() ændre størrelsen på spilleren og hastigheden hvis powerup er aktiv
   sizeChange() {
     if (this.activepowerup) {
-      this.speed = 3,5;
+      (this.speed = 3), 5;
       this.height = 60;
       this.width = 10;
     } else {
+      this.speed = 5;
       this.height = 120;
       this.width = 20;
     }
