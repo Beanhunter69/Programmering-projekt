@@ -59,7 +59,7 @@ function keyPressed() {
   // Tjekker tryk af knapper til brug af powerup af spiller 1
   if (key === "e") {
     // tjekker for at betingelser for brug af powerup er opfyldt
-    if (player2.usedpower == false) {
+    if (player1.usedpower == false) {
       // sætter powerup (debuff) til aktiv for modstander gennem sizeChange()
       player2.activepowerup = true;
       player2.sizeChange();
